@@ -5,7 +5,7 @@ export const GetPostsController = async (req, res) => {
     try {
         const data = await PostsSchema.find({});
         if (data) {
-            res.send({ status: 200, body: datat });
+            res.send({ status: 200, body: data });
         } else {
             res.send({ status: 401, body: null });
         }
