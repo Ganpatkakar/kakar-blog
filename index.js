@@ -19,16 +19,14 @@ app.use('/', (req, res) => {
 });
 
 
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || process.env.DEVPORT;
 
-mongoose.connect(process.env.MONGOCONNECT, { useNewUrlParser: true })
-	.then((db) => {
-		console.log(`Connected with db`);
+mongoose.connect(process.env.MONGOCONNECT, { useNewUrlParser: true, useUnifiedTopology: true })
+	.then(() => {
+		app.listen(PORT, () => {
+			console.log(`Logging from PORT:${PORT}`);
+		});
 	})
-	.catch(err => console.log(err));
-
-app.listen(PORT, () => {
-	console.log(`Logging from PORT:${PORT}`);
-});
+	.catch(err => console.log(err.message));
 
 mongoose.set('useFindAndModify', false);
